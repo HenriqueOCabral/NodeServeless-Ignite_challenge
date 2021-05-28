@@ -1,66 +1,42 @@
-# FinAPI_Ignite
+# 💻 Sobre o desafio
 
-API for financial transactions, with a reasonable amount of requests worked and one example of middleware usage.
-Study project by Ignite Bootcamp from Rocketseat - Classes were done by: <a href="https://github.com/danileao">Daniele Leao</a>
+Nesse desafio você irá recriar uma parte da API de *todos* que foi desenvolvida no desafio [Conceitos do Node.js](https://www.notion.so/Desafio-01-Conceitos-do-Node-js-59ccb235aecd43a6a06bf09a24e7ede8) mas dessa vez deverá ser usado o framework [Serverless](https://www.serverless.com/).
 
-## Requirements
+Cada funcionalidade deverá ser criada em um arquivo de função separada de acordo com o que foi visto nesse último módulo.
+As rotas que deverão existir são:
 
-For development, you will only need Node.js and a node global package, Yarn, installed in your environement.
+**POST -** `/todos/{userid}`
 
-### Node
-- #### Node installation on Windows
+**GET-** `/todos/{userid}`
 
-  Just go on [official Node.js website](https://nodejs.org/) and download the installer.
-Also, be sure to have `git` available in your PATH, `npm` might need it (You can find git [here](https://git-scm.com/)).
+### Sobre as rotas
 
-- #### Node installation on Ubuntu
+- **POST -** `/todos/{userid}`
 
-  You can install nodejs and npm easily with apt install, just run the following commands.
+    Essa rota deve receber o `id` de um usuário pelo `pathParameters` (você pode criar esse id manualmente apenas para preencher o campo) e os seguintes campos no corpo da requisição: `title` e `deadline`, onde `deadline` é a data limite para o *todo*.
 
-      $ sudo apt install nodejs
-      $ sudo apt install npm
+    O *todo* deverá ser salvo com os seguintes campos no DynamoDB:
 
-- #### Other Operating Systems
-  You can find more information about the installation on the [official Node.js website](https://nodejs.org/) and the [official NPM website](https://npmjs.org/).
+    ```json
+    { 
+    	id: 'uuid', // id gerado para garantir um único todo com o mesmo id
+    	user_id: 'uuid' // id do usuário recebido no pathParameters
+    	title: 'Nome da tarefa',
+    	done: false, // inicie sempre como false
+    	deadline: new Date(deadline)
+    }
+    ```
 
-If the installation was successful, you should be able to run the following command.
+- **GET-** `/todos/{userid}`
 
-    $ node --version
-    v^X.XX.X
+    Essa rota deve receber o `id` de um usuário pelo `pathParameters` (o mesmo id que foi usado para criar algum *todo*).
 
-    $ npm --version
-    X.X.X
+    A rota deve retornar os *todos* que possuírem o `user_id` igual ao `id` recebido pelos parâmetros.
 
-If you need to update `npm`, you can make it using `npm`! Cool right? After running the following command, just open again the command line and be happy.
+# 📅 Entrega
 
-    $ npm install npm -g
+Não é necessário fazer o deploy desse desafio na AWS.
 
-###
-### Yarn installation
-  After installing node, this project will need yarn too, so just run the following command.
+Esse desafio deve ser entregue a partir da plataforma da Rocketseat. Envie o link do repositório que você fez suas alterações. Após concluir o desafio, além de ter mandado o código para o GitHub, fazer um post no Linkedin é uma boa forma de demonstrar seus conhecimentos e esforços para evoluir na sua carreira para oportunidades futuras.
 
-      $ npm install -g yarn
-
----
-
-## Install
-
-    $ git clone https://github.com/YOUR_USERNAME/PROJECT_TITLE
-    $ cd PROJECT_TITLE
-    $ yarn install
-
-## Configure app
-
-Open `a/nice/path/to/a.file` then edit it with your settings. You will need:
-
-- A setting;
-- Another setting;
-- One more setting;
-
-## Running the project
-
-    $ yarn start
-
-## Simple build for production
-
-    $ yarn build
+Feito com 💜 por Rocketseat 👋 Participe da nossa [comunidade aberta!](https://discord.gg/pUU3CG4Z)
