@@ -1,0 +1,85 @@
+service:
+  name: NodeServeless-Ignite_challenge
+
+plugins:
+  - serverless-webpack
+  - serverless-dotenv-plugin
+  - serverless-dynamodb-local
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    TODOS_TABLE_NAME: ${self:custom.TodosTable.name}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:Query
+      Resource:
+        - ${self:custom.TodosTable.arn}
+        - !Join ['/', [ '${self:custom.TodosTable.arn}', 'index', 'userIdAndCreatedAt' ]]
+    
+functions:
+  createTodo:
+    handler: src/handlers/createTodo.handle
+    events:
+      - http:
+          path: /todos/{user_id}
+          method: post
+          cors: true
+  listTodos:
+    handler: src/handlers/listTodos.handle
+    events:
+      - http:
+          path: /todos/{user_id}
+          method: get
+          cors: true          
+
+resources:
+  Resources:
+    TodosTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TodosTable-${self:provider.stage}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: user_id
+            AttributeType: S
+          - AttributeName: created_at
+            AttributeType: S      
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: userIdAndCreatedAt
+            KeySchema:
+              - AttributeName: user_id
+                KeyType: HASH
+              - AttributeName: created_at
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL    
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  dynamodb:
+    stages:
+      - dev
+      - local
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true   
+  TodosTable:
+    name: !Ref TodosTable
+    arn: !GetAtt TodosTable.Arn 
+    
+package:
+  excludeDevDependencies: true      

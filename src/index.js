@@ -13,7 +13,7 @@ function verifyIfExistsAccountCPF(req, res, next) {
     const customer = customers.find((customer) => customer.cpf === cpf);
 
         if (!customer) {
-          return res.status(400).json({ error: "Customer not found!" });
+          return res.status(400).json({ error: "User not found!" });
         }
 
     req.customer = customer
@@ -44,7 +44,7 @@ app.post("/account", (req, res) => {
         res.status(400).json({error: "Customer already exists!"})
     }
     
-    custumers.push({
+    customers.push({
         cpf,
         name,
         id: uuidv4(),
