@@ -1,35 +1,43 @@
-:computer: Sobre o desafio
-Nesse desafio você irá recriar uma parte da API de todos que foi desenvolvida no desafio Conceitos do Node.js mas dessa vez deverá ser usado o framework Serverless.
+# 💻 Sobre o desafio
 
-Cada funcionalidade deverá ser criada em um arquivo de função separada de acordo com o que foi visto nesse último módulo. As rotas que deverão existir são:
+Nesse desafio você irá recriar uma parte da API de *todos* que foi desenvolvida no desafio [Conceitos do Node.js](https://www.notion.so/Desafio-01-Conceitos-do-Node-js-59ccb235aecd43a6a06bf09a24e7ede8) mas dessa vez deverá ser usado o framework [Serverless](https://www.serverless.com/).
 
-POST - /todos/{userid}
+Cada funcionalidade deverá ser criada em um arquivo de função separada de acordo com o que foi visto nesse último módulo.
+As rotas que deverão existir são:
 
-GET- /todos/{userid}
+**POST -** `/todos/{userid}`
 
-Sobre as rotas
-POST - /todos/{userid}
+**GET-** `/todos/{userid}`
 
-Essa rota deve receber o id de um usuário pelo pathParameters (você pode criar esse id manualmente apenas para preencher o campo) e os seguintes campos no corpo da requisição: title e deadline, onde deadline é a data limite para o todo.
+### Sobre as rotas
 
-O todo deverá ser salvo com os seguintes campos no DynamoDB:
+- **POST -** `/todos/{userid}`
 
-{ 
-	id: 'uuid', // id gerado para garantir um único todo com o mesmo id
-	user_id: 'uuid' // id do usuário recebido no pathParameters
-	title: 'Nome da tarefa',
-	done: false, // inicie sempre como false
-	deadline: new Date(deadline)
-}
-GET- /todos/{userid}
+    Essa rota deve receber o `id` de um usuário pelo `pathParameters` (você pode criar esse id manualmente apenas para preencher o campo) e os seguintes campos no corpo da requisição: `title` e `deadline`, onde `deadline` é a data limite para o *todo*.
 
-Essa rota deve receber o id de um usuário pelo pathParameters (o mesmo id que foi usado para criar algum todo).
+    O *todo* deverá ser salvo com os seguintes campos no DynamoDB:
 
-A rota deve retornar os todos que possuírem o user_id igual ao id recebido pelos parâmetros.
+    ```json
+    { 
+    	"id: 'uuid', // id gerado para garantir um único todo com o mesmo id
+    	user_id: 'uuid' // id do usuário recebido no pathParameters
+    	title: 'Nome da tarefa',
+    	done: false, // inicie sempre como false
+    	deadline: new Date(deadline)
+    }
+    ```
 
-:date: Entrega
+- **GET-** `/todos/{userid}`
+
+    Essa rota deve receber o `id` de um usuário pelo `pathParameters` (o mesmo id que foi usado para criar algum *todo*).
+
+    A rota deve retornar os *todos* que possuírem o `user_id` igual ao `id` recebido pelos parâmetros.
+
+# 📅 Entrega
+
 Não é necessário fazer o deploy desse desafio na AWS.
 
 Esse desafio deve ser entregue a partir da plataforma da Rocketseat. Envie o link do repositório que você fez suas alterações. Após concluir o desafio, além de ter mandado o código para o GitHub, fazer um post no Linkedin é uma boa forma de demonstrar seus conhecimentos e esforços para evoluir na sua carreira para oportunidades futuras.
 
-Feito com :purple_heart: por Rocketseat wave Participe da nossa <a href="https://discord.gg/pUU3CG4Z">comunidade aberta!</a>
+Feito com 💜 por Rocketseat 👋 Participe da nossa [comunidade aberta!](https://discord.gg/pUU3CG4Z)
+>>>>>>> 2b14c5282defb818414ffef3e53f309775d3e740
